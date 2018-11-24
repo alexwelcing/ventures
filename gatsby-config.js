@@ -22,6 +22,12 @@ module.exports = {
           `gatsby-remark-katex`,
           `gatsby-remark-copy-linked-files`,
           {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              noInlineHighlight: true,
+            },
+          },
+          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 1200,
