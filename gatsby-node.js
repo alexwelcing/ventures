@@ -2,7 +2,7 @@ const path = require('path')
 
 const pageTemplate = path.resolve('./src/templates/page.js')
 const postTemplate = path.resolve('./src/templates/post.js')
-const categoryTemplate = path.resolve('./src/templates/blogCategory.js')
+const tagTemplate = path.resolve('./src/templates/tag.js')
 
 const query = `
   {
@@ -17,8 +17,8 @@ const query = `
         }
       }
     }
-    categories: allMarkdownRemark {
-      group(field: frontmatter___categories) {
+    tags: allMarkdownRemark {
+      group(field: frontmatter___tags) {
         title: fieldValue
       }
     }
@@ -32,7 +32,7 @@ exports.createPages = async ({ graphql, actions }) => {
     console.error(response.errors)
     throw new Error(response.errors)
   }
-  const { content, categories } = response.data
+  let { content, tags } = response.data
   content.edges.forEach(({ node }) => {
     const {
       path,
@@ -53,11 +53,15 @@ exports.createPages = async ({ graphql, actions }) => {
       })
     }
   })
-  categories.group.forEach(category => {
-    const { title } = category
+  tags = tags.group.map(({ title }) => ({
+    title,
+    slug: title.toLowerCase().replace(` `, `-`),
+  }))
+  tags.push({ title: `All`, slug: `` })
+  tags.forEach(({ title, slug }) => {
     createPage({
-      path: `/blog/` + title.toLowerCase().replace(` `, `-`),
-      component: categoryTemplate,
+      path: `/blog/` + slug,
+      component: tagTemplate,
       context: { title },
     })
   })
