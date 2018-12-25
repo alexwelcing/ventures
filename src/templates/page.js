@@ -4,8 +4,6 @@ import { graphql } from 'gatsby'
 import Global from '../components/Global'
 import PageTitle from '../components/PageTitle'
 
-import 'katex/dist/katex.min.css'
-
 const PageTemplate = ({ data, location }) => {
   const {
     frontmatter: { title },
@@ -29,7 +27,7 @@ const PageTemplate = ({ data, location }) => {
 
 export default PageTemplate
 
-export const pageQuery = graphql`
+export const query = graphql`
   query($slug: String!) {
     page: markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       frontmatter {
