@@ -1,14 +1,17 @@
 - title: Physics
-  url: physics
+  url: /physics
 
-- title: AI
-  url: ai
+- title: ML
+  url: /ml
 
 - title: Web
-  url: web
+  url: /web
+
+- title: Photography
+  url: /photography
 
 - title: Blog
-  url: blog
+  url: /blog
 
 - title: Contact
-  url: contact
+  url: /contact
