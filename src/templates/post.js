@@ -11,7 +11,10 @@ import PrevNext from "../components/PrevNext"
 const PostTemplate = ({ data, location, pageContext }) => {
   const { frontmatter, excerpt, html, timeToRead } = data.post
   const { title, slug, date, cover } = frontmatter
-  if (cover) cover.fluid = cover.img.sharp.fluid
+  if (cover && cover.img) {
+    if (cover.img.sharp) cover.fluid = cover.img.sharp.fluid
+    if (cover.img.src) cover.src = cover.img.src
+  }
   const meta = { date, timeToRead }
   const { next, previous } = pageContext
   const disqusConfig = {
@@ -27,8 +30,8 @@ const PostTemplate = ({ data, location, pageContext }) => {
       <PageBody>
         <div dangerouslySetInnerHTML={{ __html: html }} />
         <PrevNext
-          prev={previous.frontmatter}
-          next={next.frontmatter}
+          prev={previous && previous.frontmatter}
+          next={next && next.frontmatter}
           slugPrefix="/blog"
           label="post"
         />
