@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components"
-import Image from "gatsby-image"
+import styled, { css } from 'styled-components'
+import Image from 'gatsby-image'
 
 export const PageTitleContainer = styled.hgroup`
   position: relative;
-  color: ${props => props.theme.white};
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +25,8 @@ export const Title = styled.div`
   font-size: calc(1em + 0.5vw);
   margin: 1em;
   ${props => props.backdrop && backdrop};
+  display: grid;
+  justify-content: center;
 `
 
 export const Img = styled(Image).attrs(
@@ -34,7 +36,9 @@ export const Img = styled(Image).attrs(
   z-index: -1;
   width: 100%;
   height: 100%;
-  background: ${props => props.as === `div` && `linear-gradient(
+  background: ${props =>
+    props.as === `div` &&
+    `linear-gradient(
     28deg,
     rgba(255, 113, 0, 1) 0%,
     rgba(9, 9, 121, 1) 50%,

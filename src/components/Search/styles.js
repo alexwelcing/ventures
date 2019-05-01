@@ -1,5 +1,7 @@
-import styled, { css } from "styled-components"
-import { Search } from "styled-icons/fa-solid/Search"
+import React from 'react'
+import styled, { css } from 'styled-components'
+import { Search } from 'styled-icons/fa-solid/Search'
+import { Algolia } from 'styled-icons/fa-brands/Algolia'
 
 export const Root = styled.div`
   position: relative;
@@ -7,17 +9,17 @@ export const Root = styled.div`
   grid-gap: 1em;
 `
 
-export const Loupe = styled(Search)`
+export const SearchIcon = styled(Search)`
   width: 1em;
   pointer-events: none;
 `
 
-const focussed = css`
-  background: ${props => props.theme.white};
+const focus = css`
+  background: white;
   color: ${props => props.theme.darkBlue};
   cursor: text;
   width: 5em;
-  + ${Loupe} {
+  + ${SearchIcon} {
     color: ${props => props.theme.darkBlue};
     margin: 0.3em;
   }
@@ -27,12 +29,12 @@ const collapse = css`
   width: 0;
   cursor: pointer;
   color: ${props => props.theme.lightBlue};
-  + ${Loupe} {
-    color: ${props => props.theme.white};
+  + ${SearchIcon} {
+    color: white;
   }
-  ${props => props.focussed && focussed}
-  margin-left: ${props => (props.focussed ? `-1.6em` : `-1em`)};
-  padding-left: ${props => (props.focussed ? `1.6em` : `1em`)};
+  ${props => props.focus && focus}
+  margin-left: ${props => (props.focus ? `-1.6em` : `-1em`)};
+  padding-left: ${props => (props.focus ? `1.6em` : `1em`)};
   ::placeholder {
     color: ${props => props.theme.gray};
   }
@@ -43,7 +45,7 @@ const expand = css`
   width: 6em;
   margin-left: -1.6em;
   padding-left: 1.6em;
-  + ${Loupe} {
+  + ${SearchIcon} {
     margin: 0.3em;
   }
 `
@@ -64,15 +66,15 @@ export const Form = styled.form`
   align-items: center;
 `
 
-const list = css`
+const hitsList = css`
   position: absolute;
   right: 0;
   top: calc(100% + 0.5em);
-  width: calc(4em + 40vw);
+  width: 80vw;
   max-width: 30em;
   box-shadow: 0 0 5px 0;
   padding: 0.7em 1em 0.4em;
-  background: ${props => props.theme.white};
+  background: white;
   border-radius: ${props => props.theme.smallBorderRadius};
   > * + * {
     padding-top: 1em !important;
@@ -85,7 +87,7 @@ const list = css`
   }
 `
 
-const grid = css`
+const hitsGrid = css`
   ul {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
@@ -104,7 +106,7 @@ export const HitsWrapper = styled.div`
   overflow: scroll;
   z-index: 2;
   -webkit-overflow-scrolling: touch;
-  ${props => (props.hitsAsGrid ? grid : list)};
+  ${props => (props.asGrid ? hitsGrid : hitsList)};
   * {
     margin-top: 0;
     padding: 0;
@@ -121,7 +123,7 @@ export const HitsWrapper = styled.div`
     justify-content: space-between;
     margin-bottom: 0.3em;
     h3 {
-      color: ${props => props.theme.white};
+      color: white;
       background: ${props => props.theme.gray};
       padding: 0.1em 0.4em;
       border-radius: ${props => props.theme.smallBorderRadius};
@@ -135,8 +137,11 @@ export const HitsWrapper = styled.div`
   }
 `
 
-export const By = styled.span`
-  font-size: 0.6em;
-  text-align: end;
-  padding: 0;
-`
+export const PoweredBy = () => (
+  <span css="font-size: 0.6em; text-align: end; padding: 0;">
+    Powered by{` `}
+    <a href="https://algolia.com">
+      <Algolia size="1em" /> Algolia
+    </a>
+  </span>
+)

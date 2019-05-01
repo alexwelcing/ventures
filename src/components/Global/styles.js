@@ -1,8 +1,8 @@
-import { createGlobalStyle } from "styled-components"
-import "katex/dist/katex.min.css"
+import { createGlobalStyle } from 'styled-components'
+import 'katex/dist/katex.min.css'
 
-import mediaQuery from "../../utils/mediaQuery"
-import typography from "../../utils/typography"
+import mediaQuery from '../../utils/mediaQuery'
+import typography from '../../utils/typography'
 
 const { phone, desktop } = mediaQuery.screens
 const {
@@ -67,7 +67,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   .button {
     background: ${props => props.theme.blue};
-    color: ${props => props.theme.white} !important;
+    color: white !important;
     border-radius: ${props => props.theme.smallBorderRadius};
     padding: 0.3em 0.6em;
     transition: ${props => props.theme.shortTrans};
@@ -80,14 +80,19 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
   /* center image captions */
-  .gatsby-resp-image-wrapper + em {
+  .gatsby-resp-image-wrapper + em, img + em {
     margin-top: 0.3em;
     display: block;
     text-align: center;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.95em;
   }
   /* prevent wide equations from breaking layout */
   .katex-display {
     overflow-x: scroll;
+    overflow-y: hidden;
   }
   blockquote {
     border-left: 0.25em solid ${props => props.theme.lightBlue};

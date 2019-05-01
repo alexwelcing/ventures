@@ -8,6 +8,7 @@ tags:
   - Design
   - WebDev
   - Tutorial
+  - JS
 ---
 
 > This is no longer a good way to implement a modal in React. With the recent introduction of React Hooks, [I wrote a new Masonry component](/blog/react-hooks-masonry) that's simpler and more robust.
@@ -124,5 +125,3 @@ const PostList = ({ posts }) => (
 
 export default PostList
 ```
-
-You can see the result in the wild [here](https://ocean-artup.eu/blog) and [here](https://studenten-bilden-schueler.de/blog).
