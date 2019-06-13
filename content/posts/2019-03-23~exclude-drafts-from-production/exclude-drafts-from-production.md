@@ -5,12 +5,12 @@ date: 2019-03-19
 cover:
   img: exclude-drafts-from-production.svg
 tags:
-  - WebDev
+  - Web Dev
   - Tutorial
   - JS
 ---
 
-Kyle Mathews who created Gatsby [started a dicussion](https://github.com/gatsbyjs/gatsby/issues/25) about how to exclude files during the build process for the production version of a site. You might want to do this if you have some blog posts lying around that are in a draft state and not ready for primetime yet. The question was asked way back in Sep 2015 but hasn't resulted in a canonical solution, unfortunately.
+Kyle Mathews who created Gatsby [started a discussion](https://github.com/gatsbyjs/gatsby/issues/25) about how to exclude files during the build process for the production version of a site. You might want to do this if you have some blog posts lying around that are in a draft state and not ready for prime time yet. The question was asked way back in Sep 2015 but hasn't resulted in a canonical solution, unfortunately.
 
 [Alexander Bradley](https://github.com/gatsbyjs/gatsby/issues/25#issuecomment-364717023) and [David Poindexter](https://github.com/gatsbyjs/gatsby/issues/25#issuecomment-379488775) both proposed solutions that filter out posts with a frontmatter property `published` (or don't have a property `draft` if you prefer) in `gatsby-node.js`. In my opinion, this comes with some downsides.
 

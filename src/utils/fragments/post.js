@@ -6,8 +6,9 @@ export const query = graphql`
       title
       subtitle
       slug
-      date(formatString: "MMM DD, YYYY")
+      date(formatString: "MMM D, YYYY")
       tags
+      showToc
       ...cover
     }
     timeToRead

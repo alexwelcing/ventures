@@ -8,7 +8,7 @@ module.exports = {
     title: `janosh.io`,
     description: `Physics, machine learning, sustainability and web development.`,
     author: `Janosh Riebesell`,
-    siteUrl: `https://janosh.io`,
+    url: `https://janosh.io`,
   },
   plugins: [
     `gatsby-transformer-sharp`,
@@ -22,9 +22,9 @@ module.exports = {
           `gatsby-remark-responsive-iframe`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-code-titles`,
+          `gatsby-remark-vscode`,
           `gatsby-remark-sub-sup`,
           `gatsby-remark-autolink-headers`,
-          `gatsby-remark-vscode`,
           {
             resolve: `gatsby-remark-katex`,
             options: { macros },
@@ -79,6 +79,7 @@ module.exports = {
         logo: `./content/favicon.png`,
       },
     },
+    `gatsby-plugin-lodash`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-netlify-cache`,

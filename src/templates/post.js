@@ -7,36 +7,37 @@ import PageTitle from "../components/PageTitle"
 import { PageBody } from "../components/styles"
 import PostMeta from "../components/PostMeta"
 import PrevNext from "../components/PrevNext"
+import Toc from "../components/Toc"
 import { disqusConfig } from "../utils"
 
 const PostTitle = ({ title, subtitle }) =>
   subtitle ? (
-    <div css="padding: 0.3em 1em;">
-      <h1 css="margin: 0;">{title}</h1>
+    <div css="padding: 0.3em 1em; > * { margin: 0;}">
+      <h1>{title}</h1>
       <hr css="margin: 0.3em 0;" />
-      <h2 css="margin: 0;">{subtitle}</h2>
+      <h2>{subtitle}</h2>
     </div>
   ) : (
     <h1>{title}</h1>
   )
 
-const PostTemplate = ({ data, location }) => {
+export default function PostTemplate({ data, location }) {
   const { post, next, prev } = data
   const { frontmatter, excerpt, html, timeToRead } = post
-  const meta = { ...frontmatter, timeToRead }
-  const { title, slug, cover } = frontmatter
+  const { title, slug, cover, showToc } = frontmatter
   if (cover && cover.img) {
     if (cover.img.sharp) cover.fluid = cover.img.sharp.fluid
     if (cover.img.src) cover.src = cover.img.src
   }
   return (
     <Global pageTitle={title} path={location.pathname} description={excerpt}>
-      <PageTitle img={cover} backdrop>
+      <PageTitle img={cover}>
         <PostTitle {...frontmatter} />
-        <PostMeta inTitle {...meta} />
+        <PostMeta inTitle {...{ ...frontmatter, timeToRead }} />
       </PageTitle>
-      <PageBody>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+      <PageBody as="div">
+        {showToc && <Toc />}
+        <main dangerouslySetInnerHTML={{ __html: html }} />
         <DiscussionEmbed {...disqusConfig({ slug, title })} />
         <PrevNext
           prev={prev && prev.frontmatter}
@@ -48,8 +49,6 @@ const PostTemplate = ({ data, location }) => {
     </Global>
   )
 }
-
-export default PostTemplate
 
 export const query = graphql`
   query($slug: String!, $prevSlug: String!, $nextSlug: String!) {

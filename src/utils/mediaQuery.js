@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react"
-import { titleCase } from "."
+import { startCase } from "lodash"
 
 const min = width => `only screen and (min-width: ${width}em)`
 const max = width => `only screen and (max-width: ${width}em)`
@@ -17,7 +16,7 @@ const mediaQuery = {
 }
 
 for (const key of Object.keys(mediaQuery.screens)) {
-  const Key = titleCase(key)
+  const Key = startCase(key)
   for (const [func, name] of [[min, `min`], [max, `max`]]) {
     // css query
     const query = func(mediaQuery.screens[key])
@@ -28,19 +27,3 @@ for (const key of Object.keys(mediaQuery.screens)) {
 }
 
 export default mediaQuery
-
-// React hook for JS media queries
-export const useMediaQuery = cond => {
-  if (typeof window !== `undefined`) {
-    if (!mediaQuery[cond + `Js`])
-      throw `useMediaQuery's condition should be one of (min|max)(Phone|Phablet|Tablet|etc.)`
-    const query = window.matchMedia(mediaQuery[cond + `Js`])
-    const [match, setMatch] = useState(query.matches)
-    useEffect(() => {
-      const handleMatch = q => setMatch(q.matches)
-      query.addListener(handleMatch)
-      return () => query.removeListener(handleMatch)
-    })
-    return match
-  }
-}

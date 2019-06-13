@@ -5,7 +5,7 @@ date: 2019-01-13
 cover:
   img: react-hooks-modal.png
 tags:
-  - WebDev
+  - Web Dev
   - Tutorial
   - JS
 ---
@@ -20,12 +20,12 @@ yarn add react@next react-dom@next
 
 That's it. Ready to start coding. But what to do first? One thing that seemed a good fit for hooks are modals. I'd implemented them once or twice before and in both cases came away with the feeling that a class component with all its boilerplate is overkill considering the tiny bit of state management required for modal functionality. As expected, using hooks I was able to boil it down quite considerably. This is what I ended up with.
 
-```jsx:title=src/components/modal/index.js
+```js:title=src/components/modal/index.js
 import React from 'react'
 
 import { ModalBackground, ModalContainer, Close } from './styles'
 
-const Modal = ({ open, closeModal, children }) => {
+export default function Modal({ open, closeModal, children }) {
   return (
     <ModalBackground open={open} onClick={closeModal}>
       <ModalContainer onClick={event => event.stopPropagation()}>
@@ -35,8 +35,6 @@ const Modal = ({ open, closeModal, children }) => {
     </ModalBackground>
   )
 }
-
-export default Modal
 ```
 
 And here are the styled components imported on line 3.
@@ -84,7 +82,7 @@ As you can see, the styles are longer than the component itself. That's where I 
 
 Anyways, regarding usage, notice that the modal component doesn't actually handle it's own state. That's done by the parent component. As an example here's a [list of photos](/nature) that when clicked enter a higher-resolution modal view.
 
-```jsx{1,9,15,19}
+```js{1,9,15,19}
 import React, { useState, Fragment } from 'react'
 
 import Masonry from '../../components/Masonry'
@@ -115,7 +113,7 @@ export default function Photos({ photos }) {
 
 So basically just 4 lines of code to control the list of modals (and 2 of those do other things as well). I have to say, I was pretty impressed by that. For comparison, this is how much code the class implementation needed (just the JS, no styles yet).
 
-```jsx
+```js
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -189,7 +187,7 @@ and then maybe use the `::backdrop` pseudo-element for the modal background.
 
 However, bear in mind that using `::backdrop` would make it more difficult to close the modal on clicks outside of it, i.e. on the background. This is because React is unable to attach `onClick` event handlers to pseudo-elements and it seems unlikely this will change down the road. A workaround would be to use the new `useRef` and `useEffect` hook to create an event listener on the browser's `window` object that checks for the target of the `click` event. That would complicate things a little, though, since the listener would have to trigger on _all_ clicks and check that the modal doesn't include the target before closing. Something like so:
 
-```jsx:title=components/modal/index.js
+```js:title=components/modal/index.js
 import React, { useRef, useEffect } from 'react'
 
 import { ModalBackground, ModalContainer, Close } from './styles'
@@ -218,7 +216,7 @@ export default function Modal({ open, closeModal, children }) {
 
 If you have a list of modals and you'd like users to be able to go to the next or previous modal using the arrow keys, you can add an event listener with the `useEffect` hook for this as well.
 
-```jsx{5-8,12-16,25-30}:title=src/components/modal/index.js
+```js{5-8,12-16,25-30}:title=src/components/modal/index.js
 import React, { useEffect } from 'react'
 
 import { ModalBackground, ModalContainer, Close, Next, Prev } from './styles'
@@ -228,15 +226,17 @@ const handleArrowKeys = (modal, setModal) => event => {
   else if (event.key === `ArrowLeft`) setModal(modal - 1)
 }
 
-const Modal = ({ open, modal, setModal, children, navigation, className }) => {
+export default function Modal({ open, modal, setModal, ...rest }) {
   if (open) {
+    const { navigation, className, children } = rest
     useEffect(() => {
       const handler = handleArrowKeys(modal, setModal)
       document.addEventListener(`keydown`, handler)
       return () => document.removeEventListener(`keydown`, handler)
     })
     return (
-      // passing setModal without arguments will close the modal when triggered
+      // passing setModal to onClick without arguments implicitly
+      // passes undefined and thus closes the modal when triggered
       <ModalBackground open={open} onClick={setModal}>
         <ModalContainer
           onClick={event => event.stopPropagation()}
@@ -255,8 +255,6 @@ const Modal = ({ open, modal, setModal, children, navigation, className }) => {
     )
   } else return null
 }
-
-export default Modal
 ```
 
 The new styled components `Next` and `Prev` share most of their CSS with `Close` so it makes sense to reuse that:

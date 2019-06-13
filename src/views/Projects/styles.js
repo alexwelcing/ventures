@@ -1,12 +1,12 @@
-import styled, { css } from 'styled-components'
-import Image from 'gatsby-image'
-import { Calendar } from 'styled-icons/octicons/Calendar'
-import { Package } from 'styled-icons/feather/Package'
-import { Github } from 'styled-icons/icomoon/Github'
-import { Npm } from 'styled-icons/fa-brands/Npm'
-import { Link } from 'styled-icons/boxicons-regular/Link'
+import styled, { css } from "styled-components"
+import Image from "gatsby-image"
+import { Calendar } from "styled-icons/octicons/Calendar"
+import { PackageIcon } from "styled-icons/feather/PackageIcon"
+import { Github } from "styled-icons/icomoon/Github"
+import { Npm } from "styled-icons/fa-brands/Npm"
+import { Link } from "styled-icons/boxicons-regular/Link"
 
-import { Grid } from '../../components/styles'
+import { Grid } from "../../components/styles"
 
 export const ProjectGrid = styled(Grid)`
   ${props =>
@@ -27,8 +27,7 @@ export const Thumbnail = styled.div`
   display: grid;
   width: 100%;
   height: 100%;
-  border: 1px solid ${props => props.theme.lightGray};
-  box-shadow: 0 0 1em rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 1em ${props => props.theme.shadowColor};
   transition: 0.5s;
   h3 {
     grid-area: 1 / 1;
@@ -74,10 +73,10 @@ export const GitHub = styled(Github)`
 export const NPM = styled(Npm)`
   ${iconCss};
   width: 1.7em;
-  vertical-align: -0.7em;
+  vertical-align: middle;
 `
 
-export const Tech = styled(Package)`
+export const Tech = styled(PackageIcon)`
   ${iconCss}
 `
 

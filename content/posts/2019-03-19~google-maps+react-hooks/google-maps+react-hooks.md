@@ -5,14 +5,14 @@ date: 2019-03-19
 cover:
   img: google-maps+react-hooks.svg
 tags:
-  - WebDev
+  - Web Dev
   - Tutorial
   - JS
 ---
 
 Had to share this one since it's so nice and simple. If you're looking for a drop-in, zero-dependency Google Maps React component, look no further. Here it is:
 
-```jsx:title=src/components/map.js
+```js:title=src/components/map.js
 import React, { useEffect, useRef } from 'react'
 
 export default function Map({ options, onMount, className }) {
@@ -49,11 +49,11 @@ Map.defaultProps = {
 }
 ```
 
-To use it, simply grab a free Google Maps API key from [Google's cloud console](https://console.cloud.google.com) ([here's a guide for that](https://developers.google.com/maps/documentation/javascript/get-api-key)) and either add it to your `.env` file or paste it in directly for `GOOGLE_MAPS_API_KEY`.
+To use it, simply grab a free Google Maps API key from [Google's cloud console](https://console.cloud.google.com) ([here's a guide for that](https://developers.google.com/maps/documentation/javascript/get-api-key)) and either add it to your `.env` file or paste it in directly for `process.env.GOOGLE_MAPS_API_KEY`.
 
 Then simply drop in the above `Map` component wherever you'd like to display a Google map.
 
-```jsx{7}:title=src/app.js
+```js{7}:title=src/app.js
 import React from 'react'
 import Map from './components/map.js'
 
@@ -67,7 +67,7 @@ export default () => (
 
 To change the area shown by the map and its zoom level, pass it an `options` object containing the keys `center` and `zoom`.
 
-```jsx
+```js
 mapProps = {
   options: {
     center: { lat: 20, lng: 40 },
@@ -80,7 +80,7 @@ mapProps = {
 
 If you'd like to do something more fancy, for instance add some markers to the map, you can also pass in an `onMount` function:
 
-```jsx{17}
+```js{17}
 const addMarkers = links => map => {
   links.forEach((link, index) => {
     const marker = new window.google.maps.Marker({
@@ -109,9 +109,9 @@ Note that the `onMount` function must be curried since the `Map` component itsel
 
 ## Optimization
 
-By default, when using the `Map` component inside another functional component it will rerender whenever the parent component rerenders. Not only does this waste computational ressources since there's no need to rerender the map if the changed props do not pertain to it, it also ruins the user experience since the map will jump back to its initial zoom level and center on every rerender. To prevent this, you can easily create a memoized map with the `useCallback` hook:
+By default, when using the `Map` component inside another function component it will rerender whenever the parent component rerenders. Not only does this waste computational resources since there's no need to rerender the map if its props didn't change, it also ruins the user experience since the map will jump back to its initial `center` and `zoom` on every rerender. To prevent this, you can easily create a memoized map with the `useCallback` hook:
 
-```jsx{1,4,9}:title=src/app.js
+```js{1,4,9}:title=src/app.js
 import React, { useCallback } from 'react'
 import Map from './components/map.js'
 
@@ -125,9 +125,9 @@ export default () => (
 )
 ```
 
-In fact, you may want to make this part of the `Map` vomponent by default, i.e.
+In fact, you may want to make this part of the `Map` component by default, i.e.
 
-```diff{36}:title=src/components/map.js
+```js{36}:title=src/components/map.js
 - export default function Map({ options, onMount, className }) {
 + function Map({ options, onMount, className }) {
   ...
