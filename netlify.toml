@@ -1,4 +1,4 @@
 [[redirects]]
-  from = "https://janosh.netlify.com/*"
-  to = "https://janosh.io/:splat"
+  from = "https://laurlexventures.netlify.com/*"
+  to = "https://laurlex.ventures/:splat"
   force = true

@@ -1,12 +1,12 @@
 {
   "private": true,
-  "name": "janosh.io",
-  "title": "janosh.io",
-  "homepage": "https://janosh.io",
-  "description": "Personal blog of Janosh Riebesell",
-  "version": "1.0.0",
-  "author": "Janosh Riebesell <janosh.riebesell@gmail.com>",
-  "repository": "https://github.com/janosh/janosh.io",
+  "name": "Laurlex.Ventures",
+  "title": "Laurlex.Ventures",
+  "homepage": "https://laurlex.ventures",
+  "description": "Travel journal.",
+  "version": "1.0.1",
+  "author": "Alex Welcing <alexwelcing@gmail.com>",
+  "repository": "https://github.com/alexwelcing/ventures",
   "license": "MIT",
   "dependencies": {
     "@google/markerclustererplus": "^2.1.11",
@@ -46,12 +46,15 @@
     "lodash": "^4.17.11",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-helmet": "^6.0.0-beta",
+    "react-helmet": "5.1.3",
     "react-instantsearch-dom": "^5.6.0",
     "react-spring": "^8.0.23",
+    "remark-parse": "^6.0.3",
     "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^4.2.1",
-    "styled-icons": "8.1.0"
+    "styled-icons": "8.1.0",
+    "typescript": "^3.5.1",
+    "webpack": "^4.34.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
@@ -68,13 +71,6 @@
     "debugProd": "node --inspect node_modules/.bin/gatsby build"
   },
   "keywords": [
-    "janosh riebesell",
-    "personal blog",
-    "portfolio",
-    "physics",
-    "machine learning",
-    "web development",
-    "science",
     "nature",
     "gatsby",
     "styled-components"
