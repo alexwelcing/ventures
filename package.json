@@ -39,7 +39,7 @@
     "gatsby-remark-sub-sup": "^1.0.0",
     "gatsby-remark-vscode": "^1.0.5",
     "gatsby-source-filesystem": "2.0.39",
-    "gatsby-transformer-remark": "2.3.12",
+    "gatsby-transformer-remark": "5.25.1",
     "gatsby-transformer-sharp": "2.1.21",
     "gatsby-transformer-yaml": "2.1.12",
     "katex": "^0.10.2",
